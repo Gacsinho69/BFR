@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View - Product Template Extension -->
+        <record id="view_product_template_form_baufer" model="ir.ui.view">
+            <field name="name">product.template.form.baufer</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <!-- Add fields to General Information -->
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="brand_id"/>
+                    <field name="engine_type"/>
+                </xpath>
+
+                <!-- Add notebook page for BAUFER info -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información Repuesto" name="baufer_part_info">
+                        <group>
+                            <group string="Identificación">
+                                <field name="part_number"/>
+                                <field name="oem_number"/>
+                                <field name="equipment_model"/>
+                                <field name="compatible_brands" widget="many2many_tags"/>
+                            </group>
+                            <group string="Stock y Criticidad">
+                                <field name="critical_part" widget="boolean_toggle"/>
+                                <field name="minimum_stock" attrs="{'invisible': [('critical_part', '=', False)]}"/>
+                                <field name="current_stock" widget="float"/>
+                                <field name="stock_status" widget="badge" attrs="{'invisible': [('type', '!=', 'product')]}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group string="Importación">
+                                <field name="supplier_id"/>
+                                <field name="lead_time_days"/>
+                                <field name="import_frequency"/>
+                                <field name="last_import_date"/>
+                                <field name="next_import_date"/>
+                            </group>
+                            <group string="Información Comercial">
+                                <field name="rotation_category" widget="badge"/>
+                                <field name="sales_count"/>
+                                <field name="last_sale_date"/>
+                            </group>
+                        </group>
+
+                        <div class="oe_button_box" name="button_box_baufer">
+                            <button class="oe_stat_button" type="object" name="action_view_stock_moves" icon="fa-exchange" attrs="{'invisible': [('type', '!=', 'product')]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Movimientos</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_request_import" icon="fa-ship" attrs="{'invisible': [('stock_status', 'not in', ['out_of_stock', 'to_order'])]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Solicitar Importación</span>
+                                </div>
+                            </button>
+                        </div>
+                    </page>
+                </xpath>
+
+                <!-- Add search filters -->
+                <xpath expr="//search" position="inside">
+                    <filter string="Partes Críticas" name="critical_parts" domain="[('critical_part', '=', True)]"/>
+                    <filter string="Stock Bajo" name="low_stock" domain="[('stock_status', 'in', ['low_stock', 'out_of_stock'])]"/>
+                    <filter string="Alta Rotación" name="high_rotation" domain="[('rotation_category', '=', 'high')]"/>
+                    <separator/>
+                    <filter string="Diesel" name="diesel" domain="[('engine_type', '=', 'diesel')]"/>
+                    <filter string="Gasolina" name="gasoline" domain="[('engine_type', '=', 'gasoline')]"/>
+                    <filter string="Gas" name="gas" domain="[('engine_type', '=', 'gas')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Marca" name="group_brand" context="{'group_by': 'brand_id'}"/>
+                        <filter string="Tipo Motor" name="group_engine_type" context="{'group_by': 'engine_type'}"/>
+                        <filter string="Estado Stock" name="group_stock_status" context="{'group_by': 'stock_status'}"/>
+                        <filter string="Rotación" name="group_rotation" context="{'group_by': 'rotation_category'}"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Tree View - Product Template Extension -->
+        <record id="view_product_template_tree_baufer" model="ir.ui.view">
+            <field name="name">product.template.tree.baufer</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">stock_status == 'out_of_stock'</attribute>
+                    <attribute name="decoration-warning">stock_status == 'low_stock'</attribute>
+                    <attribute name="decoration-success">stock_status == 'in_stock' and critical_part == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="part_number" optional="show"/>
+                    <field name="brand_id" optional="show"/>
+                    <field name="current_stock" optional="show"/>
+                    <field name="stock_status" optional="show" widget="badge"/>
+                    <field name="critical_part" optional="hide"/>
+                    <field name="rotation_category" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Kanban View for Products -->
+        <record id="view_product_template_kanban_baufer" model="ir.ui.view">
+            <field name="name">product.template.kanban.baufer</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="part_number"/>
+                    <field name="brand_id"/>
+                    <field name="list_price"/>
+                    <field name="current_stock"/>
+                    <field name="stock_status"/>
+                    <field name="critical_part"/>
+                    <field name="rotation_category"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('product.template', 'image_128', record.id.raw_value)" alt="Product"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                            <div t-if="record.part_number.raw_value">
+                                                <span class="text-muted">PN: <field name="part_number"/></span>
+                                            </div>
+                                        </div>
+                                        <span t-if="record.critical_part.raw_value" class="badge badge-danger">CRÍTICO</span>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <div t-if="record.brand_id.raw_value">
+                                            Marca: <field name="brand_id"/>
+                                        </div>
+                                        <div>
+                                            Stock: <field name="current_stock"/>
+                                            <span t-att-class="'badge badge-' + (record.stock_status.raw_value == 'in_stock' ? 'success' : (record.stock_status.raw_value == 'out_of_stock' ? 'danger' : 'warning'))">
+                                                <field name="stock_status"/>
+                                            </span>
+                                        </div>
+                                        <div t-if="record.rotation_category.raw_value">
+                                            <field name="rotation_category" widget="badge"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <strong>Precio: <field name="list_price" widget="monetary"/></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Product Brand Views -->
+        <record id="view_product_brand_tree" model="ir.ui.view">
+            <field name="name">product.brand.tree</field>
+            <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="product_count"/>
+                    <field name="partner_count"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_product_brand_form" model="ir.ui.view">
+            <field name="name">product.brand.form</field>
+            <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+                <form string="Marca de Producto">
+                    <sheet>
+                        <field name="logo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre de la marca..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                            <group>
+                                <field name="product_count"/>
+                                <field name="partner_count"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Descripción">
+                                <field name="description" placeholder="Descripción de la marca..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_brand" model="ir.actions.act_window">
+            <field name="name">Marcas</field>
+            <field name="res_model">product.brand</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Baufer Region Views -->
+        <record id="view_baufer_region_tree" model="ir.ui.view">
+            <field name="name">baufer.region.tree</field>
+            <field name="model">baufer.region</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="mining_area == True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="mining_area" widget="boolean_toggle"/>
+                    <field name="service_coverage" widget="boolean_toggle"/>
+                    <field name="partner_count"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_baufer_region_form" model="ir.ui.view">
+            <field name="name">baufer.region.form</field>
+            <field name="model">baufer.region</field>
+            <field name="arch" type="xml">
+                <form string="Región BAUFER">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" icon="fa-users">
+                                <field string="Clientes" name="partner_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre de la región..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="sequence"/>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="mining_area" widget="boolean_toggle"/>
+                                <field name="service_coverage" widget="boolean_toggle"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Descripción">
+                                <field name="description" placeholder="Información sobre la región..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_baufer_region" model="ir.actions.act_window">
+            <field name="name">Regiones</field>
+            <field name="res_model">baufer.region</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="menu_baufer_catalog"
+                  name="Catálogo"
+                  parent="menu_baufer_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_baufer_products"
+                  name="Productos"
+                  parent="menu_baufer_catalog"
+                  action="product.product_template_action"
+                  sequence="10"/>
+
+        <menuitem id="menu_baufer_brands"
+                  name="Marcas"
+                  parent="menu_baufer_catalog"
+                  action="action_product_brand"
+                  sequence="20"/>
+
+        <menuitem id="menu_baufer_config"
+                  name="Configuración"
+                  parent="menu_baufer_root"
+                  sequence="100"/>
+
+        <menuitem id="menu_baufer_regions"
+                  name="Regiones"
+                  parent="menu_baufer_config"
+                  action="action_baufer_region"
+                  sequence="10"/>
+
+    </data>
+</odoo>
