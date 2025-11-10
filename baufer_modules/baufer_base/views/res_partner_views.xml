@@ -84,11 +84,11 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
+                <tree position="attributes">
                     <attribute name="decoration-success">is_mining_sector == True</attribute>
                     <attribute name="decoration-warning">risk_level == 'medium'</attribute>
                     <attribute name="decoration-danger">risk_level == 'high'</attribute>
-                </xpath>
+                </tree>
                 <xpath expr="//field[@name='email']" position="after">
                     <field name="customer_type" optional="show"/>
                     <field name="fleet_size" optional="hide"/>
