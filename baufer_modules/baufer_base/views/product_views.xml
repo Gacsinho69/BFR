@@ -63,8 +63,17 @@
                     </page>
                 </xpath>
 
-                <!-- Add search filters -->
-                <xpath expr="//search" position="inside">
+            </field>
+        </record>
+
+        <!-- Search View - Add Custom Filters -->
+        <record id="view_product_template_search_baufer" model="ir.ui.view">
+            <field name="name">product.template.search.baufer</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
                     <filter string="Partes Críticas" name="critical_parts" domain="[('critical_part', '=', True)]"/>
                     <filter string="Stock Bajo" name="low_stock" domain="[('stock_status', 'in', ['low_stock', 'out_of_stock'])]"/>
                     <filter string="Alta Rotación" name="high_rotation" domain="[('rotation_category', '=', 'high')]"/>
@@ -72,15 +81,13 @@
                     <filter string="Diesel" name="diesel" domain="[('engine_type', '=', 'diesel')]"/>
                     <filter string="Gasolina" name="gasoline" domain="[('engine_type', '=', 'gasoline')]"/>
                     <filter string="Gas" name="gas" domain="[('engine_type', '=', 'gas')]"/>
-                    <separator/>
-                    <group expand="0" string="Agrupar Por">
-                        <filter string="Marca" name="group_brand" context="{'group_by': 'brand_id'}"/>
-                        <filter string="Tipo Motor" name="group_engine_type" context="{'group_by': 'engine_type'}"/>
-                        <filter string="Estado Stock" name="group_stock_status" context="{'group_by': 'stock_status'}"/>
-                        <filter string="Rotación" name="group_rotation" context="{'group_by': 'rotation_category'}"/>
-                    </group>
                 </xpath>
-
+                <xpath expr="//filter[@name='categ_id']" position="after">
+                    <filter string="Marca" name="group_brand" context="{'group_by': 'brand_id'}"/>
+                    <filter string="Tipo Motor" name="group_engine_type" context="{'group_by': 'engine_type'}"/>
+                    <filter string="Estado Stock" name="group_stock_status" context="{'group_by': 'stock_status'}"/>
+                    <filter string="Rotación" name="group_rotation" context="{'group_by': 'rotation_category'}"/>
+                </xpath>
             </field>
         </record>
 

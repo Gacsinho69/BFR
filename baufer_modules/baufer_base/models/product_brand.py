@@ -13,7 +13,13 @@ class ProductBrand(models.Model):
     """
     _name = 'product.brand'
     _description = 'Marca de Producto'
-    _order = 'name'
+    _order = 'sequence, name'
+
+    sequence = fields.Integer(
+        string='Secuencia',
+        default=10,
+        help='Orden de visualización'
+    )
 
     name = fields.Char(
         string='Nombre Marca',
