@@ -32,23 +32,22 @@ Sistema ERP personalizado para **BAUFER (Inversiones Séneca SpA)**, empresa esp
 ### Estructura de Módulos
 
 ```
-baufer_modules/
-├── baufer_base/          ✅ IMPLEMENTADO - Fase 1
-│   ├── models/
-│   │   ├── res_partner.py
-│   │   ├── product_template.py
-│   │   ├── product_brand.py
-│   │   └── baufer_region.py
-│   ├── data/
-│   │   ├── product_brands.xml
-│   │   ├── product_categories.xml
-│   │   └── regions.xml
-│   ├── views/
-│   │   ├── res_partner_views.xml
-│   │   └── product_views.xml
-│   └── security/
-│       └── ir.model.access.csv
-│
+baufer_base/              ✅ IMPLEMENTADO - Fase 1
+├── models/
+│   ├── res_partner.py
+│   ├── product_template.py
+│   ├── product_brand.py
+│   └── baufer_region.py
+├── data/
+│   ├── product_brands.xml
+│   ├── product_categories.xml
+│   └── regions.xml
+├── views/
+│   ├── res_partner_views.xml
+│   └── product_views.xml
+└── security/
+    └── ir.model.access.csv
+
 ├── baufer_crm/           📋 PENDIENTE - Fase 2
 ├── baufer_sale/          📋 PENDIENTE - Fase 3
 ├── baufer_inventory/     📋 PENDIENTE - Fase 4
@@ -229,11 +228,11 @@ cd BFR
 
 2. **Copiar módulos a Odoo**:
 ```bash
-# En Odoo.sh
+# En Odoo.sh (la ruta del módulo ya es detectada automáticamente)
 git push odoo <branch-name>
 
 # En instalación local
-cp -r baufer_modules/* /path/to/odoo/addons/
+cp -r baufer_base /path/to/odoo/addons/
 ```
 
 3. **Actualizar lista de aplicaciones**:
