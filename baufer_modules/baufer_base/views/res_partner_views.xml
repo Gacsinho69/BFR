@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View - Customer Information Extension -->
+        <record id="view_partner_form_baufer" model="ir.ui.view">
+            <field name="name">res.partner.form.baufer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Add notebook page after the existing pages -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información BAUFER" name="baufer_info" invisible="not is_company">
+                        <group>
+                            <group string="Datos Comerciales">
+                                <field name="customer_type"/>
+                                <field name="fleet_size"/>
+                                <field name="main_brands" widget="many2many_tags"/>
+                                <field name="equipment_types" widget="many2many_tags"/>
+                                <field name="region_operations" widget="many2many_tags"/>
+                            </group>
+                            <group string="Términos Comerciales">
+                                <field name="payment_terms"/>
+                                <field name="credit_days"/>
+                                <field name="risk_level" widget="badge"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group string="Métricas Comerciales">
+                                <field name="lifetime_value" widget="monetary"/>
+                                <field name="average_ticket" widget="monetary"/>
+                                <field name="purchase_frequency"/>
+                                <field name="last_purchase_date"/>
+                                <field name="total_orders"/>
+                            </group>
+                            <group string="SLA y Atención">
+                                <field name="sla_15min_compliance" widget="progressbar"/>
+                                <field name="average_response_time"/>
+                                <field name="nps_score"/>
+                                <field name="is_mining_sector" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="action_view_orders" icon="fa-shopping-cart">
+                                <field string="Órdenes" name="total_orders" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_view_opportunities" icon="fa-star">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Oportunidades</span>
+                                </div>
+                            </button>
+                        </div>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Search View - Add Custom Filters -->
+        <record id="view_partner_filter_baufer" model="ir.ui.view">
+            <field name="name">res.partner.filter.baufer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter string="Sector Minero" name="mining_sector" domain="[('is_mining_sector', '=', True)]"/>
+                    <filter string="Clientes Arriendo" name="rental_customers" domain="[('customer_type', '=', 'rental')]"/>
+                    <filter string="Alto Valor" name="high_value" domain="[('lifetime_value', '>', 10000000)]"/>
+                </xpath>
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter string="Tipo Cliente" name="group_customer_type" context="{'group_by': 'customer_type'}"/>
+                    <filter string="Nivel Riesgo" name="group_risk_level" context="{'group_by': 'risk_level'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Tree View - Customer List Extension -->
+        <record id="view_partner_tree_baufer" model="ir.ui.view">
+            <field name="name">res.partner.tree.baufer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="decoration-success">is_mining_sector == True</attribute>
+                    <attribute name="decoration-warning">risk_level == 'medium'</attribute>
+                    <attribute name="decoration-danger">risk_level == 'high'</attribute>
+                </tree>
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="customer_type" optional="show"/>
+                    <field name="fleet_size" optional="hide"/>
+                    <field name="lifetime_value" optional="show" widget="monetary"/>
+                    <field name="is_mining_sector" optional="hide"/>
+                    <field name="risk_level" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Kanban View for Partners -->
+        <record id="view_partner_kanban_baufer" model="ir.ui.view">
+            <field name="name">res.partner.kanban.baufer</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="customer_type"/>
+                    <field name="lifetime_value"/>
+                    <field name="is_mining_sector"/>
+                    <field name="risk_level"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span t-if="record.is_mining_sector.raw_value" class="badge badge-success">Minería</span>
+                                    <span t-if="record.risk_level.raw_value == 'high'" class="badge badge-danger">Alto Riesgo</span>
+                                    <span t-elif="record.risk_level.raw_value == 'medium'" class="badge badge-warning">Riesgo Medio</span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="customer_type"/>
+                                    <div t-if="record.email.raw_value"><i class="fa fa-envelope"/> <field name="email"/></div>
+                                    <div t-if="record.phone.raw_value"><i class="fa fa-phone"/> <field name="phone"/></div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <strong>LTV: <field name="lifetime_value" widget="monetary"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="menu_baufer_root"
+                  name="BAUFER"
+                  sequence="5"/>
+
+        <menuitem id="menu_baufer_customers"
+                  name="Clientes"
+                  parent="menu_baufer_root"
+                  action="base.action_partner_form"
+                  sequence="10"/>
+
+    </data>
+</odoo>
