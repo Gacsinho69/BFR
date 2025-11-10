@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Categoría padre: Repuestos Maquinaria Pesada -->
+        <record id="category_heavy_machinery_parts" model="product.category">
+            <field name="name">Repuestos Maquinaria Pesada</field>
+            <field name="parent_id" ref="product.product_category_all"/>
+        </record>
+
+        <!-- Motor -->
+        <record id="category_motor" model="product.category">
+            <field name="name">Motor</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Transmisión -->
+        <record id="category_transmision" model="product.category">
+            <field name="name">Transmisión</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Sistema Hidráulico -->
+        <record id="category_sistema_hidraulico" model="product.category">
+            <field name="name">Sistema Hidráulico</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Sistema Eléctrico -->
+        <record id="category_sistema_electrico" model="product.category">
+            <field name="name">Sistema Eléctrico</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Filtros -->
+        <record id="category_filtros" model="product.category">
+            <field name="name">Filtros</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Rodamiento -->
+        <record id="category_rodamiento" model="product.category">
+            <field name="name">Rodamiento</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Tren de Rodaje -->
+        <record id="category_tren_rodaje" model="product.category">
+            <field name="name">Tren de Rodaje</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Sistema Enfriamiento -->
+        <record id="category_sistema_enfriamiento" model="product.category">
+            <field name="name">Sistema Enfriamiento</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Frenos -->
+        <record id="category_frenos" model="product.category">
+            <field name="name">Frenos</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+        <!-- Dirección -->
+        <record id="category_direccion" model="product.category">
+            <field name="name">Dirección</field>
+            <field name="parent_id" ref="category_heavy_machinery_parts"/>
+            <field name="property_cost_method">fifo</field>
+        </record>
+
+    </data>
+</odoo>

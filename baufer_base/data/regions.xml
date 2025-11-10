@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Región de Arica y Parinacota -->
+        <record id="region_arica_parinacota" model="baufer.region">
+            <field name="name">Región de Arica y Parinacota</field>
+            <field name="code">AP</field>
+            <field name="sequence">1</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">True</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región XV - Arica y Parinacota. Zona minera con actividad en altura.</field>
+        </record>
+
+        <!-- Región de Tarapacá -->
+        <record id="region_tarapaca" model="baufer.region">
+            <field name="name">Región de Tarapacá</field>
+            <field name="code">TA</field>
+            <field name="sequence">2</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">True</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región I - Tarapacá. Importante actividad minera, especialmente cobre y salitre.</field>
+        </record>
+
+        <!-- Región de Antofagasta -->
+        <record id="region_antofagasta" model="baufer.region">
+            <field name="name">Región de Antofagasta</field>
+            <field name="code">AN</field>
+            <field name="sequence">3</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">True</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región II - Antofagasta. Principal región minera de Chile, concentra gran parte de la producción de cobre del país.</field>
+        </record>
+
+        <!-- Región de Atacama -->
+        <record id="region_atacama" model="baufer.region">
+            <field name="name">Región de Atacama</field>
+            <field name="code">AT</field>
+            <field name="sequence">4</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">True</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región III - Atacama. Importante actividad minera de cobre, oro y hierro.</field>
+        </record>
+
+        <!-- Región de Coquimbo -->
+        <record id="region_coquimbo" model="baufer.region">
+            <field name="name">Región de Coquimbo</field>
+            <field name="code">CO</field>
+            <field name="sequence">5</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región IV - Coquimbo. Región con actividad agrícola, turística y minera menor.</field>
+        </record>
+
+        <!-- Región de Valparaíso -->
+        <record id="region_valparaiso" model="baufer.region">
+            <field name="name">Región de Valparaíso</field>
+            <field name="code">VA</field>
+            <field name="sequence">6</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región V - Valparaíso. Principal puerto del país, actividad portuaria y comercial.</field>
+        </record>
+
+        <!-- Región Metropolitana -->
+        <record id="region_metropolitana" model="baufer.region">
+            <field name="name">Región Metropolitana de Santiago</field>
+            <field name="code">RM</field>
+            <field name="sequence">7</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región Metropolitana - Santiago. Capital del país, centro político y económico.</field>
+        </record>
+
+        <!-- Región del Libertador General Bernardo O'Higgins -->
+        <record id="region_ohiggins" model="baufer.region">
+            <field name="name">Región del Libertador General Bernardo O'Higgins</field>
+            <field name="code">LI</field>
+            <field name="sequence">8</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región VI - O'Higgins. Región con actividad agrícola y minera (El Teniente).</field>
+        </record>
+
+        <!-- Región del Maule -->
+        <record id="region_maule" model="baufer.region">
+            <field name="name">Región del Maule</field>
+            <field name="code">ML</field>
+            <field name="sequence">9</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región VII - Maule. Principal región agrícola del país.</field>
+        </record>
+
+        <!-- Región de Ñuble -->
+        <record id="region_nuble" model="baufer.region">
+            <field name="name">Región de Ñuble</field>
+            <field name="code">NB</field>
+            <field name="sequence">10</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región XVI - Ñuble. Región agrícola y ganadera.</field>
+        </record>
+
+        <!-- Región del Biobío -->
+        <record id="region_biobio" model="baufer.region">
+            <field name="name">Región del Biobío</field>
+            <field name="code">BI</field>
+            <field name="sequence">11</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región VIII - Biobío. Segunda región más poblada, actividad forestal e industrial.</field>
+        </record>
+
+        <!-- Región de La Araucanía -->
+        <record id="region_araucania" model="baufer.region">
+            <field name="name">Región de La Araucanía</field>
+            <field name="code">AR</field>
+            <field name="sequence">12</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región IX - Araucanía. Región agrícola, ganadera y forestal.</field>
+        </record>
+
+        <!-- Región de Los Ríos -->
+        <record id="region_los_rios" model="baufer.region">
+            <field name="name">Región de Los Ríos</field>
+            <field name="code">LR</field>
+            <field name="sequence">13</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región XIV - Los Ríos. Región con actividad forestal, turística y ganadera.</field>
+        </record>
+
+        <!-- Región de Los Lagos -->
+        <record id="region_los_lagos" model="baufer.region">
+            <field name="name">Región de Los Lagos</field>
+            <field name="code">LL</field>
+            <field name="sequence">14</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">True</field>
+            <field name="description">Región X - Los Lagos. Principal región salmonera y ganadera del país.</field>
+        </record>
+
+        <!-- Región de Aysén -->
+        <record id="region_aysen" model="baufer.region">
+            <field name="name">Región de Aysén del General Carlos Ibáñez del Campo</field>
+            <field name="code">AI</field>
+            <field name="sequence">15</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">False</field>
+            <field name="description">Región XI - Aysén. Región con baja densidad poblacional, actividad ganadera y turística.</field>
+        </record>
+
+        <!-- Región de Magallanes -->
+        <record id="region_magallanes" model="baufer.region">
+            <field name="name">Región de Magallanes y de la Antártica Chilena</field>
+            <field name="code">MA</field>
+            <field name="sequence">16</field>
+            <field name="country_id" ref="base.cl"/>
+            <field name="mining_area">False</field>
+            <field name="service_coverage">False</field>
+            <field name="description">Región XII - Magallanes. Región más austral de Chile, actividad petrolera y ganadera.</field>
+        </record>
+
+    </data>
+</odoo>
