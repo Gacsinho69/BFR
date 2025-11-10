@@ -97,11 +97,11 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
+                <tree position="attributes">
                     <attribute name="decoration-danger">stock_status == 'out_of_stock'</attribute>
                     <attribute name="decoration-warning">stock_status == 'low_stock'</attribute>
                     <attribute name="decoration-success">stock_status == 'in_stock' and critical_part == True</attribute>
-                </xpath>
+                </tree>
                 <xpath expr="//field[@name='list_price']" position="after">
                     <field name="part_number" optional="show"/>
                     <field name="brand_id" optional="show"/>
