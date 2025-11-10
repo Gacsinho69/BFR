@@ -56,18 +56,25 @@
                     </page>
                 </xpath>
 
-                <!-- Add fields to tree view filters -->
-                <xpath expr="//search" position="inside">
+            </field>
+        </record>
+
+        <!-- Search View - Add Custom Filters -->
+        <record id="view_partner_filter_baufer" model="ir.ui.view">
+            <field name="name">res.partner.filter.baufer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
                     <filter string="Sector Minero" name="mining_sector" domain="[('is_mining_sector', '=', True)]"/>
                     <filter string="Clientes Arriendo" name="rental_customers" domain="[('customer_type', '=', 'rental')]"/>
                     <filter string="Alto Valor" name="high_value" domain="[('lifetime_value', '>', 10000000)]"/>
-                    <separator/>
-                    <group expand="0" string="Agrupar Por">
-                        <filter string="Tipo Cliente" name="group_customer_type" context="{'group_by': 'customer_type'}"/>
-                        <filter string="Nivel Riesgo" name="group_risk_level" context="{'group_by': 'risk_level'}"/>
-                    </group>
                 </xpath>
-
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter string="Tipo Cliente" name="group_customer_type" context="{'group_by': 'customer_type'}"/>
+                    <filter string="Nivel Riesgo" name="group_risk_level" context="{'group_by': 'risk_level'}"/>
+                </xpath>
             </field>
         </record>
 
