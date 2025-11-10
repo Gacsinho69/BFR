@@ -27,9 +27,9 @@
                             </group>
                             <group string="Stock y Criticidad">
                                 <field name="critical_part" widget="boolean_toggle"/>
-                                <field name="minimum_stock" attrs="{'invisible': [('critical_part', '=', False)]}"/>
+                                <field name="minimum_stock" invisible="not critical_part"/>
                                 <field name="current_stock" widget="float"/>
-                                <field name="stock_status" widget="badge" attrs="{'invisible': [('type', '!=', 'product')]}"/>
+                                <field name="stock_status" widget="badge" invisible="type != 'product'"/>
                             </group>
                         </group>
 
@@ -49,12 +49,12 @@
                         </group>
 
                         <div class="oe_button_box" name="button_box_baufer">
-                            <button class="oe_stat_button" type="object" name="action_view_stock_moves" icon="fa-exchange" attrs="{'invisible': [('type', '!=', 'product')]}">
+                            <button class="oe_stat_button" type="object" name="action_view_stock_moves" icon="fa-exchange" invisible="type != 'product'">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Movimientos</span>
                                 </div>
                             </button>
-                            <button class="oe_stat_button" type="object" name="action_request_import" icon="fa-ship" attrs="{'invisible': [('stock_status', 'not in', ['out_of_stock', 'to_order'])]}">
+                            <button class="oe_stat_button" type="object" name="action_request_import" icon="fa-ship" invisible="stock_status not in ['out_of_stock', 'to_order']">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Solicitar Importación</span>
                                 </div>
