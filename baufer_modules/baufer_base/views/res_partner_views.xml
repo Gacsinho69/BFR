@@ -11,7 +11,7 @@
 
                 <!-- Add notebook page after the existing pages -->
                 <xpath expr="//notebook" position="inside">
-                    <page string="Información BAUFER" name="baufer_info" attrs="{'invisible': [('is_company', '=', False)]}">
+                    <page string="Información BAUFER" name="baufer_info" invisible="not is_company">
                         <group>
                             <group string="Datos Comerciales">
                                 <field name="customer_type"/>
