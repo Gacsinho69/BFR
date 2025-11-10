@@ -29,26 +29,38 @@ Sistema ERP personalizado para **BAUFER (Inversiones Séneca SpA)**, empresa esp
 - **VCS**: GitHub
 - **Branch Strategy**: development → staging → production
 
+## 🚀 Despliegue en Odoo.sh 18
+
+1. **Estructura del repositorio**: mantén cada módulo personalizado (por ejemplo, `baufer_base/`) en la raíz del repositorio. Odoo.sh 18 detecta automáticamente los módulos ubicados en la raíz sin necesidad de carpetas adicionales.
+2. **Conexión con Odoo.sh**: vincula este repositorio a tu proyecto Odoo.sh. La rama configurada en el proyecto determinará el código desplegado en cada base (staging/production).
+3. **Actualización de la lista de aplicaciones**: en el entorno Odoo 18, ve a *Apps → Update Apps List* y activa el modo desarrollador si es necesario para recargar los manifiestos.
+4. **Instalación o actualización**: busca "BAUFER Base" en el panel de Apps y haz clic en *Install* (o *Upgrade* si ya estaba instalado). Esto cargará los datos y vistas descritos en este repositorio.
+
+### Validación posterior al despliegue
+
+- Abre *Contactos → Clientes* y verifica que la vista de lista muestre las decoraciones de color (verde, amarillo, rojo) según el nivel de riesgo y el indicador minero.
+- En la ficha del contacto, confirma que exista la pestaña "Información BAUFER" con los campos comerciales y métricas.
+- Comprueba que los filtros y agrupaciones adicionales estén disponibles en el buscador de contactos.
+
 ### Estructura de Módulos
 
 ```
-baufer_modules/
-├── baufer_base/          ✅ IMPLEMENTADO - Fase 1
-│   ├── models/
-│   │   ├── res_partner.py
-│   │   ├── product_template.py
-│   │   ├── product_brand.py
-│   │   └── baufer_region.py
-│   ├── data/
-│   │   ├── product_brands.xml
-│   │   ├── product_categories.xml
-│   │   └── regions.xml
-│   ├── views/
-│   │   ├── res_partner_views.xml
-│   │   └── product_views.xml
-│   └── security/
-│       └── ir.model.access.csv
-│
+baufer_base/              ✅ IMPLEMENTADO - Fase 1
+├── models/
+│   ├── res_partner.py
+│   ├── product_template.py
+│   ├── product_brand.py
+│   └── baufer_region.py
+├── data/
+│   ├── product_brands.xml
+│   ├── product_categories.xml
+│   └── regions.xml
+├── views/
+│   ├── res_partner_views.xml
+│   └── product_views.xml
+└── security/
+    └── ir.model.access.csv
+
 ├── baufer_crm/           📋 PENDIENTE - Fase 2
 ├── baufer_sale/          📋 PENDIENTE - Fase 3
 ├── baufer_inventory/     📋 PENDIENTE - Fase 4
@@ -229,11 +241,11 @@ cd BFR
 
 2. **Copiar módulos a Odoo**:
 ```bash
-# En Odoo.sh
+# En Odoo.sh (la ruta del módulo ya es detectada automáticamente)
 git push odoo <branch-name>
 
 # En instalación local
-cp -r baufer_modules/* /path/to/odoo/addons/
+cp -r baufer_base /path/to/odoo/addons/
 ```
 
 3. **Actualizar lista de aplicaciones**:
