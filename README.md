@@ -244,6 +244,8 @@ odoo-bin -u all -d <database>
 Apps → Update Apps List
 ```
 
+> 📚 **¿Necesitas instrucciones más guiadas?** Revisa [`docs/INSTALACION_PASO_A_PASO.md`](docs/INSTALACION_PASO_A_PASO.md) para seguir el proceso con verificaciones después de cada paso y soluciones a errores frecuentes.
+
 4. **Instalar baufer_base**:
 ```bash
 # Desde CLI
