@@ -112,7 +112,7 @@ git pull
 | **Contactos → Clientes → pestaña Información BAUFER** | Campos como "Tipo de cliente", "Marcas principales", "Regiones donde opera". |
 | **Productos → pestaña Información Repuesto** | Campos adicionales (marcas compatibles, número de parte, SLA, etc.). |
 | **Catálogo → Marcas** | 10 marcas ya cargadas. |
-| **Configuración → Regiones BAUFER** | 16 regiones con indicador de zona minera. |
+| **Configuración → Regiones BAUFER** | 16 regiones con indicador de zona prioritaria. |
 
 Si algo falta, revisa los logs (`/var/log/odoo/odoo-server.log`) buscando errores durante la instalación.
 

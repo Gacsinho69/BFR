@@ -51,7 +51,7 @@ baufer_base/
 |-------------------|-----------------------|
 | `data/product_brands.xml` | Alta de las 10 marcas soportadas por BAUFER (Caterpillar, Komatsu, etc.). |
 | `data/product_categories.xml` | Jerarquía base de categorías de repuestos para facilitar filtros y reportes. |
-| `data/regions.xml` | Catálogo de regiones de Chile con flag de zonas mineras. |
+| `data/regions.xml` | Catálogo de regiones de Chile con bandera para zonas estratégicas (inicialmente orientadas a minería). |
 | `models/product_brand.py` | Define el nuevo modelo `product.brand`. |
 | `models/baufer_region.py` | Define el nuevo modelo `baufer.region`. |
 | `models/res_partner.py` | Extiende `res.partner` con campos comerciales y SLA. |
@@ -83,7 +83,7 @@ baufer_base/
 | `name` | Char (req.) | Nombre de la región. |
 | `code` | Char (req., único) | Código abreviado (ej: `AN`). |
 | `sequence` | Integer | Orden de despliegue en menús/listas. |
-| `mining_area` | Boolean | Marca la región como zona minera prioritaria. |
+| `mining_area` | Boolean | Marca la región como zona estratégica prioritaria (bandera heredada de la primera versión minera). |
 | `service_coverage` | Selection | Estado de cobertura BAUFER (Completa / Parcial / Sin cobertura). |
 | `partner_ids` | Many2many (`res.partner`) | Clientes presentes en la región. |
 | `partner_count` | Integer (compute) | Número de clientes asociados. |
@@ -100,7 +100,7 @@ baufer_base/
 | `region_operations` | Many2many (`baufer.region`) | Regiones donde mantiene operaciones. |
 | `credit_days` | Integer | Días de crédito otorgados. |
 | `payment_terms` | Selection | Términos de pago acordados. |
-| `is_mining_sector` | Boolean (compute) | Verdadero si opera en una región minera o su tipo es minería. |
+| `is_mining_sector` | Boolean (compute) | Verdadero si opera en zonas marcadas como estratégicas o su tipo es minería. |
 | `sla_15min_compliance` | Float (compute) | % de oportunidades atendidas dentro del SLA de 15 minutos. |
 | `average_response_time` | Float (compute) | Tiempo promedio de primera respuesta en minutos. |
 | `lifetime_value` | Monetary (compute) | Monto acumulado de ventas al cliente. |
@@ -141,12 +141,12 @@ baufer_base/
 |-------|---------|-------------|
 | Menú principal BAUFER + submenús | `views/res_partner_views.xml` | Crea el menú raíz y accesos a Clientes, Catálogo y Configuración. |
 | `res.partner` Form | `views/res_partner_views.xml` | Añade pestaña "Información BAUFER" con campos comerciales, métricas y SLA. |
-| `res.partner` Tree | `views/res_partner_views.xml` | Muestra etiquetas de riesgo, LTV y sector minero en la lista. |
-| `res.partner` Kanban | `views/res_partner_views.xml` | Badges para sector minero y nivel de riesgo. |
+| `res.partner` Tree | `views/res_partner_views.xml` | Muestra etiquetas de riesgo, LTV y sector estratégico en la lista. |
+| `res.partner` Kanban | `views/res_partner_views.xml` | Badges para sectores estratégicos y nivel de riesgo. |
 | `product.template` Form | `views/product_views.xml` | Nueva pestaña "Información de Repuesto" con bloques técnicos, stock e importación. |
 | `product.template` Kanban | `views/product_views.xml` | Badges para criticidad, stock status y marca. |
 | `product.brand` Tree/Form | `views/product_views.xml` | Gestión de catálogos con contadores y logotipos. |
-| `baufer.region` Tree/Form | `views/res_partner_views.xml` | Visualización de regiones resaltando zonas mineras. |
+| `baufer.region` Tree/Form | `views/res_partner_views.xml` | Visualización de regiones resaltando zonas estratégicas. |
 
 > Las vistas se apoyan únicamente en componentes estándar de Odoo, por lo que son compatibles con los temas por defecto y futuras
 > actualizaciones menores.
@@ -172,7 +172,7 @@ baufer_base/
 |---------|-----------|
 | `product_brands.xml` | 10 marcas con código único, descripción y logo referenciado. |
 | `product_categories.xml` | Categorías jerárquicas (Motor, Transmisión, Hidráulico, etc.). |
-| `regions.xml` | 16 regiones de Chile con bandera `mining_area` y secuencia de despliegue. |
+| `regions.xml` | 16 regiones de Chile con bandera `mining_area` (zonas estratégicas) y secuencia de despliegue. |
 
 Cada archivo está marcado como `noupdate="1"` para evitar sobrescribir modificaciones manuales en producción.
 
@@ -183,7 +183,7 @@ Cada archivo está marcado como `noupdate="1"` para evitar sobrescribir modifica
 1. **Instalación inicial**: ejecutar `odoo-bin -d <db> -i baufer_base` sobre una base con dependencias instaladas.
 2. **Actualizaciones**: tras modificar código o datos, ejecutar `odoo-bin -d <db> -u baufer_base`.
 3. **Pruebas manuales sugeridas**:
-   - Crear un cliente nuevo en sector minero y verificar cálculo de `is_mining_sector`.
+   - Crear un cliente nuevo asociado a una zona estratégica y verificar cálculo de `is_mining_sector`.
    - Registrar un producto con `critical_part=True` y revisar el badge en la vista kanban.
    - Asignar ventas a un cliente para validar los indicadores de `lifetime_value` y `average_ticket`.
 4. **Migraciones**: si se agregan campos requeridos, incluir valores por defecto en los datos XML o scripts de post-init.

@@ -10,7 +10,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">True</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región XV - Arica y Parinacota. Zona minera con actividad en altura.</field>
+            <field name="description">Región XV - Arica y Parinacota. Corredor estratégico de frontera con operaciones logísticas y de servicios de altura.</field>
         </record>
 
         <!-- Región de Tarapacá -->
@@ -21,7 +21,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">True</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región I - Tarapacá. Importante actividad minera, especialmente cobre y salitre.</field>
+            <field name="description">Región I - Tarapacá. Polo industrial con minería, zona franca y logística portuaria.</field>
         </record>
 
         <!-- Región de Antofagasta -->
@@ -32,7 +32,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">True</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región II - Antofagasta. Principal región minera de Chile, concentra gran parte de la producción de cobre del país.</field>
+            <field name="description">Región II - Antofagasta. Principal hub industrial del norte grande con minería, energía y puertos de gran escala.</field>
         </record>
 
         <!-- Región de Atacama -->
@@ -43,7 +43,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">True</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región III - Atacama. Importante actividad minera de cobre, oro y hierro.</field>
+            <field name="description">Región III - Atacama. Plataforma para energía solar, logística portuaria y minería metálica.</field>
         </record>
 
         <!-- Región de Coquimbo -->
@@ -54,7 +54,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">False</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región IV - Coquimbo. Región con actividad agrícola, turística y minera menor.</field>
+            <field name="description">Región IV - Coquimbo. Región con actividad agrícola, turística y proyectos mineros a menor escala.</field>
         </record>
 
         <!-- Región de Valparaíso -->
@@ -87,7 +87,7 @@
             <field name="country_id" ref="base.cl"/>
             <field name="mining_area">False</field>
             <field name="service_coverage">True</field>
-            <field name="description">Región VI - O'Higgins. Región con actividad agrícola y minera (El Teniente).</field>
+            <field name="description">Región VI - O'Higgins. Región agroindustrial con minería subterránea y servicios asociados.</field>
         </record>
 
         <!-- Región del Maule -->

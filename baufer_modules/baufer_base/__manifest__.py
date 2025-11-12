@@ -13,12 +13,12 @@
         * Extensión de res.partner con datos comerciales específicos
         * Extensión de product.template con información de repuestos
         * Gestión de marcas (Caterpillar, Komatsu, etc.)
-        * Gestión de regiones de Chile con foco en zonas mineras
+        * Gestión de regiones de Chile con marcadores de zonas estratégicas
         * Configuraciones globales BAUFER
 
         Empresa: Inversiones Séneca SpA (BAUFER)
-        Sector: Importación y venta de repuestos para motores diesel, gasolina y gas
-        Mercado: Empresas de arriendo de maquinaria pesada - Sector minero
+        Sector: Importación y venta de repuestos para motores diésel, gasolina y gas
+        Mercado: Empresas de arriendo de maquinaria pesada en industrias intensivas (construcción, energía, logística, minería)
     """,
     'author': 'BAUFER',
     'website': 'https://www.baufer.cl',
