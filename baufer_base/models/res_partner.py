@@ -159,10 +159,10 @@ class ResPartner(models.Model):
     # =============================
 
     is_mining_sector = fields.Boolean(
-        string='Sector Minero',
+        string='Operación en Zona Estratégica',
         compute='_compute_is_mining_sector',
         store=True,
-        help='Indica si el cliente pertenece al sector minero'
+        help='Indica si el cliente opera en zonas estratégicas o tiene giro minero'
     )
 
     total_orders = fields.Integer(
@@ -178,7 +178,7 @@ class ResPartner(models.Model):
 
     @api.depends('customer_type', 'region_operations')
     def _compute_is_mining_sector(self):
-        """Determina si el cliente es del sector minero."""
+        """Determina si el cliente opera en zonas estratégicas o en minería."""
         for partner in self:
             is_mining = partner.customer_type == 'mining'
             has_mining_regions = any(region.mining_area for region in partner.region_operations)

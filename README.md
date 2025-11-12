@@ -1,13 +1,13 @@
 # Sistema ERP BAUFER - Odoo 18.0 Enterprise
 
-Sistema ERP personalizado para **BAUFER (Inversiones Séneca SpA)**, empresa especializada en la importación y venta de repuestos para motores diesel, gasolina y gas orientada al sector de maquinaria pesada en Chile, con foco principal en el sector minero.
+Sistema ERP personalizado para **BAUFER (Inversiones Séneca SpA)**, empresa especializada en la importación y venta de repuestos para motores diésel, gasolina y gas orientada a empresas que operan maquinaria pesada en Chile, abarcando rubros como construcción, logística, energía y minería.
 
 ## 📋 Información de la Empresa
 
 - **Razón Social**: Inversiones Séneca SpA (BAUFER)
 - **RUT**: 76.XXX.XXX-X
 - **Sector**: Importación y venta de repuestos para motores
-- **Mercado Objetivo**: Empresas de arriendo de maquinaria pesada (foco en minería)
+- **Mercado Objetivo**: Empresas de arriendo y operación de maquinaria pesada en industrias intensivas (construcción, energía, logística, minería)
 - **Modelo de Negocio**: 100% Customer-Oriented
 - **SLA Crítico**: 15 minutos máximo para primer contacto
 
@@ -16,7 +16,7 @@ Sistema ERP personalizado para **BAUFER (Inversiones Séneca SpA)**, empresa esp
 - **"Sin datos, no hay acción"**: Todas las validaciones son obligatorias (validaciones hard)
 - **Customer-Oriented**: El cliente es el centro de todas las operaciones
 - **SLA 15 minutos**: Tiempo máximo de primer contacto con el cliente
-- **Cobertura Nacional**: Foco en regiones mineras del norte de Chile
+- **Cobertura Nacional**: Atención a clientes en todo Chile con priorización según zonas operativas clave
 
 ## 🏗️ Arquitectura del Sistema
 
@@ -54,6 +54,10 @@ baufer_base/              ✅ IMPLEMENTADO - Fase 1
 └── baufer_automation/    📋 PENDIENTE - Fase 5
 ```
 
+> **Nota sobre submódulos Git:** La rama principal no utiliza submódulos. Si al clonar ves carpetas vacías o un archivo `.gitmodules`
+> dentro de tu fork, entonces ejecuta `git submodule update --init --recursive` para traer esas dependencias adicionales.
+> De lo contrario, no necesitas hacer nada extra.
+
 ## ✅ Fase 1: baufer_base (COMPLETADA)
 
 ### Modelos Implementados
@@ -82,21 +86,21 @@ Gestión de marcas de maquinaria pesada.
 - `partner_count`: Cantidad de clientes (computed)
 
 #### 2. **baufer.region** (Nuevo Modelo)
-Gestión de regiones de Chile con énfasis en zonas mineras.
+Gestión de regiones de Chile con posibilidad de marcar zonas operativas prioritarias.
 
 **Regiones Pre-cargadas**: Las 16 regiones de Chile
 
-**Regiones Mineras** 🔶:
+**Regiones Prioritarias** 🔶 (ajustables según la estrategia comercial):
 - Arica y Parinacota (AP)
 - Tarapacá (TA)
-- Antofagasta (AN) - Principal región minera
+- Antofagasta (AN)
 - Atacama (AT)
 
 **Campos Principales**:
 - `name`: Nombre de la región
 - `code`: Código corto (único)
 - `sequence`: Orden de visualización
-- `mining_area`: Indica si es zona minera
+- `mining_area`: Indica si la región es considerada zona estratégica (bandera heredada del primer despliegue minero)
 - `service_coverage`: Indica cobertura BAUFER
 - `partner_count`: Cantidad de clientes en región (computed)
 
@@ -104,7 +108,7 @@ Gestión de regiones de Chile con énfasis en zonas mineras.
 Extensión del modelo de contactos/clientes con información específica BAUFER.
 
 **Campos Nuevos - Datos Comerciales**:
-- `customer_type`: Tipo de cliente (Arriendo, Transporte, Construcción, Minería, Otro)
+- `customer_type`: Tipo de cliente (Arriendo, Transporte, Construcción, Energía, Minería, Otro)
 - `fleet_size`: Tamaño de flota del cliente
 - `main_brands`: Marcas principales que opera (Many2many)
 - `equipment_types`: Tipos de equipos (Many2many)
@@ -123,7 +127,7 @@ Extensión del modelo de contactos/clientes con información específica BAUFER.
 - `sla_15min_compliance`: % cumplimiento SLA 15 min (computed)
 - `average_response_time`: Tiempo promedio respuesta (computed)
 - `nps_score`: Net Promoter Score
-- `is_mining_sector`: Indicador sector minero (computed)
+- `is_mining_sector`: Indicador automatizado de operación en zonas estratégicas (nombre heredado del caso minero original)
 
 #### 4. **product.template** (Extensión)
 Extensión del modelo de productos para repuestos de maquinaria pesada.
@@ -172,7 +176,7 @@ Extensión del modelo de productos para repuestos de maquinaria pesada.
 #### Vistas de Clientes (res.partner)
 - ✅ Form View extendida con pestaña "Información BAUFER"
 - ✅ Tree View con indicadores visuales (colores según riesgo)
-- ✅ Kanban View con badges de sector minero y riesgo
+- ✅ Kanban View con badges de sector estratégico y riesgo
 - ✅ Filtros de búsqueda avanzados
 - ✅ Agrupaciones por tipo, riesgo, etc.
 
@@ -188,7 +192,7 @@ Extensión del modelo de productos para repuestos de maquinaria pesada.
 - ✅ Form View con logo y descripción
 
 #### Vistas de Regiones (baufer.region)
-- ✅ Tree View con indicador de zona minera
+- ✅ Tree View con indicador de zona prioritaria
 - ✅ Form View con información detallada
 
 ### Menús Implementados
@@ -244,6 +248,8 @@ odoo-bin -u all -d <database>
 Apps → Update Apps List
 ```
 
+> 📚 **¿Necesitas instrucciones más guiadas?** Revisa [`docs/INSTALACION_PASO_A_PASO.md`](docs/INSTALACION_PASO_A_PASO.md) para seguir el proceso con verificaciones después de cada paso y soluciones a errores frecuentes.
+
 4. **Instalar baufer_base**:
 ```bash
 # Desde CLI
@@ -270,7 +276,7 @@ Después de la instalación, verificar que:
 ✅ Caterpillar, Komatsu, John Deere, Volvo, JCB, Case, Hyundai, Doosan, Hyster, Yale
 
 ### Regiones (16)
-✅ Las 16 regiones de Chile, con 4 marcadas como zonas mineras
+✅ Las 16 regiones de Chile, con 4 marcadas como zonas prioritarias por defecto
 
 ### Categorías de Productos (10)
 ✅ Motor, Transmisión, Sistema Hidráulico, Sistema Eléctrico, Filtros, Rodamiento, Tren de Rodaje, Sistema Enfriamiento, Frenos, Dirección
