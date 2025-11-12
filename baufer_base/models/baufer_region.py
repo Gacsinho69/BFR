@@ -8,7 +8,7 @@ class BauferRegion(models.Model):
     """
     Modelo para gestión de regiones de Chile.
 
-    Especial énfasis en zonas mineras donde opera BAUFER.
+    Permite marcar zonas estratégicas donde BAUFER ofrece cobertura prioritaria.
     15 regiones de Chile con indicadores de cobertura y tipo de zona.
     """
     _name = 'baufer.region'
@@ -44,9 +44,9 @@ class BauferRegion(models.Model):
     )
 
     mining_area = fields.Boolean(
-        string='Zona Minera',
+        string='Zona Estratégica',
         default=False,
-        help='Indica si es una zona con actividad minera importante'
+        help='Indica si es una zona estratégica prioritaria para la operación'
     )
 
     service_coverage = fields.Boolean(
@@ -111,7 +111,7 @@ class BauferRegion(models.Model):
         """Formato de visualización: [CODE] Name."""
         result = []
         for region in self:
-            mining_indicator = ' 🔶' if region.mining_area else ''
-            name = f"[{region.code}] {region.name}{mining_indicator}"
+            priority_indicator = ' 🔶' if region.mining_area else ''
+            name = f"[{region.code}] {region.name}{priority_indicator}"
             result.append((region.id, name))
         return result
