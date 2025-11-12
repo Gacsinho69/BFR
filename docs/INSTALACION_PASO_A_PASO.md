@@ -32,6 +32,13 @@ git clone <url-del-repositorio>
 cd BFR
 ```
 
+> **¿Hay submódulos?** Este repositorio principal no define submódulos de Git. Si en tu fork o rama aparecen submódulos adicionales,
+> ejecuta inmediatamente después del clon:
+> ```bash
+> git submodule update --init --recursive
+> ```
+> Así te aseguras de que también se descarguen los módulos anidados antes de continuar con la instalación.
+
 ### Opción B: ya lo tenías
 ```bash
 cd /ruta/donde/guardas/proyectos/BFR
@@ -57,6 +64,9 @@ git pull
    cp -r baufer_modules/baufer_base /opt/odoo/custom-addons/
    ```
 3. Verifica que la carpeta quedó completa (`__manifest__.py`, `models/`, `views/`, `data/`, `security/`).
+
+> **Nota para submódulos**: Si `baufer_modules/baufer_base` proviene de un submódulo Git, confirma que el comando anterior lo copie con
+> su contenido (`ls baufer_modules/baufer_base`). Si ves la carpeta vacía, vuelve al paso 2 y ejecuta `git submodule update --init --recursive`.
 
 > **Chequeo rápido:** abre el archivo `/opt/odoo/custom-addons/baufer_base/__manifest__.py` y confirma que existe. Si no, la copia falló.
 

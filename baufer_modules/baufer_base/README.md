@@ -28,6 +28,10 @@ odoo-bin -d <database> -i baufer_base
 
 > ¿Prefieres una guía paso a paso con chequeos intermedios? Revisa
 > [`docs/INSTALACION_PASO_A_PASO.md`](../../docs/INSTALACION_PASO_A_PASO.md).
+>
+> **¿Y los submódulos?** En la rama principal este módulo vive dentro del repositorio sin usar submódulos Git. Si tu fork lo usa,
+> asegúrate de clonar con `git clone --recursive` o ejecuta `git submodule update --init --recursive` antes de copiar la carpeta
+> `baufer_base` a los addons de Odoo.
 
 ---
 

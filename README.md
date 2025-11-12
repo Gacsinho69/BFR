@@ -54,6 +54,10 @@ baufer_base/              ✅ IMPLEMENTADO - Fase 1
 └── baufer_automation/    📋 PENDIENTE - Fase 5
 ```
 
+> **Nota sobre submódulos Git:** La rama principal no utiliza submódulos. Si trabajas sobre un fork que los agregue (por ejemplo
+> para módulos privados adicionales), recuerda ejecutar `git submodule update --init --recursive` después de clonar para traer
+> también esas dependencias.
+
 ## ✅ Fase 1: baufer_base (COMPLETADA)
 
 ### Modelos Implementados
